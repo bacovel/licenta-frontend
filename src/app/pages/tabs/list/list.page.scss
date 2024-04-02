@@ -1,0 +1,9 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 1em !important;
+
+  .input {
+    margin-top: 1em;
+  }
+}

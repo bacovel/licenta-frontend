@@ -1,0 +1,16 @@
+.itemContent {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .details {
+    padding: 1.5em;
+    h1 {
+      font-weight: bold;
+    }
+    p {
+      font-size: 1.2em;
+    }
+  }
+}

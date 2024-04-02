@@ -1,38 +1,87 @@
 {
   "root": true,
-  "ignorePatterns": ["projects/**/*"],
+  "ignorePatterns": ["projects/**/*", "src/environments/*"],
+  "env": {
+    "browser": true
+  },
   "overrides": [
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": ["tsconfig.json"],
+        "project": ["tsconfig.app.json"],
         "createDefaultProgram": true
       },
       "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:prettier/recommended"
       ],
       "rules": {
-        "@angular-eslint/component-class-suffix": [
+        "@typescript-eslint/no-confusing-void-expression": "error",
+        "@typescript-eslint/member-ordering": [
           "error",
           {
-            "suffixes": ["Page", "Component"]
+            "classes": ["field", "constructor", "method", "get"]
           }
         ],
-        "@angular-eslint/component-selector": [
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/naming-convention": [
           "error",
           {
-            "type": "element",
-            "prefix": "app",
-            "style": "kebab-case"
+            "selector": ["variableLike", "function"],
+            "format": ["strictCamelCase"]
+          },
+          {
+            "selector": "property",
+            "modifiers": ["private"],
+            "format": ["camelCase"],
+            "leadingUnderscore": "require"
+          },
+          {
+            "selector": "variable",
+            "types": ["boolean"],
+            "format": ["PascalCase"],
+            "prefix": ["is", "should", "has", "can", "did", "will", "was"]
+          },
+          {
+            "selector": ["class", "enum"],
+            "format": ["PascalCase"]
+          },
+          {
+            "selector": "interface",
+            "format": ["PascalCase"],
+            "prefix": ["I"]
           }
         ],
-        "@angular-eslint/directive-selector": [
+        "eqeqeq": "error",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-member-access": "warn",
+        "@typescript-eslint/no-unsafe-call": "warn",
+        "@typescript-eslint/unbound-method": [
           "error",
           {
-            "type": "attribute",
-            "prefix": "app",
-            "style": "camelCase"
+            "ignoreStatic": true
+          }
+        ],
+        "@typescript-eslint/no-explicit-any": "off",
+        "padding-line-between-statements": "error",
+        "no-unused-expressions": "off",
+        "@typescript-eslint/no-unused-expressions": ["error"],
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "lines-between-class-members": "off",
+        "@typescript-eslint/lines-between-class-members": [
+          "error",
+          "always",
+          {
+            "exceptAfterSingleLine": true
           }
         ]
       }
@@ -40,7 +89,22 @@
     {
       "files": ["*.html"],
       "extends": ["plugin:@angular-eslint/template/recommended"],
-      "rules": {}
+      "rules": {
+        "@angular-eslint/template/no-call-expression": "warn"
+      }
+    },
+    {
+      "files": ["*.html"],
+      "excludedFiles": ["*inline-template-*.component.html"],
+      "extends": ["plugin:prettier/recommended"],
+      "rules": {
+        "prettier/prettier": [
+          "error",
+          {
+            "parser": "angular"
+          }
+        ]
+      }
     }
   ]
 }

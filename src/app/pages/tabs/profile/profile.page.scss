@@ -1,0 +1,14 @@
+ion-card {
+  border-radius: 1em;
+
+  .card-title {
+    color: rgb(196, 196, 196);
+  }
+}
+
+.profile_card {
+  padding: 0 1em 0 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

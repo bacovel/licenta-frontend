@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>List your Announcement</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" mode="md">
+  <div class="content">
+    <ion-select
+      class="input"
+      label="Choose Category"
+      label-placement="floating"
+      fill="outline"
+      [(ngModel)]="selectedCategory"
+    >
+      <ion-select-option value="item">Item</ion-select-option>
+      <ion-select-option value="service">Service</ion-select-option>
+      <ion-select-option value="need" ng-if="">Need</ion-select-option>
+    </ion-select>
+    <ion-input
+      class="input"
+      label="Title"
+      label-placement="floating"
+      fill="outline"
+      placeholder="Enter your title"
+    ></ion-input>
+    <ion-input
+      class="input"
+      label="Description"
+      label-placement="floating"
+      fill="outline"
+      placeholder="Enter a short description"
+    ></ion-input>
+    <ion-input
+      *ngIf="selectedCategory !== 'need'"
+      class="input"
+      label="Price"
+      label-placement="floating"
+      fill="outline"
+      placeholder="Enter your price in RON"
+      type="number"
+    ></ion-input>
+    <ion-button class="input">Submit</ion-button>
+  </div>
+</ion-content>

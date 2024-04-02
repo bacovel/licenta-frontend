@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>items</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="itemContent">
+    <div class="details">
+      <img [src]="data[0]?.image" />
+      <h1>{{data[0]?.title}}</h1>
+      <p>{{data[0]?.description}}</p>
+      <h3 *ngIf="data[0]?.price">RON {{data[0]?.price}}</h3>
+    </div>
+
+    <ion-button expand="full">Rezerva</ion-button>
+  </div>
+</ion-content>

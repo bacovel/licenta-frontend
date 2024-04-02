@@ -1,0 +1,27 @@
+ion-header {
+  ion-toolbar {
+    padding: 0.5em;
+
+    ion-searchbar {
+      --border-radius: 1em;
+    }
+  }
+}
+
+ion-content {
+  .headerSearchText {
+    width: 100%;
+
+    .searchText {
+      display: block;
+      margin: 1em;
+      font-weight: bold;
+    }
+  }
+
+  .announcements {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
