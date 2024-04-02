@@ -12,7 +12,6 @@
     "lint": "ng lint",
     "prepare": "husky install",
     "prettier": "npx prettier . --write",
-    "prepare": "husky install",
     "prettier:check": "prettier --config .prettierrc --check \"src/**/*.{ts,css,html}\""
   },
   "lint-staged": {
