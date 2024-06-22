@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchbarInputEventDetail } from '@ionic/angular';
 import { IAnnouncement } from 'src/app/interfaces/iannouncement';
+import { AnnouncementService } from 'src/app/services/announcement/announcement.service';
 
 @Component({
   selector: 'app-home',
@@ -9,56 +10,19 @@ import { IAnnouncement } from 'src/app/interfaces/iannouncement';
 })
 export class HomePage implements OnInit {
   announcements: IAnnouncement[] = [];
-  copyAnnouncements: IAnnouncement[] = this.announcements;
+  copyAnnouncements: IAnnouncement[] = [];
   query: string = '';
-  selectedCategory: string = 'all'; // Default category
+  selectedCategory: string = 'all';
 
-  constructor() {}
+  constructor(private announcementService: AnnouncementService) {}
 
-  ngOnInit() {
-    this.announcements = [
-      {
-        uid: '2werd',
-        image: '../../../../assets/hainaTest.jpeg',
-        title: 'Haina',
-        description: 'Calitate foarte buna',
-        category: 'item',
-        price: 20,
-      },
-      {
-        uid: '2wer2d',
-        image: '../../../../assets/hainaTest.jpeg',
-        title: 'Plita',
-        description: 'Am folosit o doar odata',
-        category: 'item',
-        price: 40,
-      },
-      {
-        uid: '2wdferd',
-        image: '../../../../assets/hainaTest.jpeg',
-        title: 'Tigari',
-        description: 'Dunhill negru',
-        category: 'item',
-        price: 15,
-      },
-      {
-        uid: '2weghrd',
-        image: '../../../../assets/hainaTest.jpeg',
-        title: 'Spalat',
-        description: 'Am masina de spalat rufe',
-        category: 'service',
-        price: 5,
-      },
-      {
-        uid: '2wuird',
-        image: '../../../../assets/hainaTest.jpeg',
-        title: 'Rapid',
-        description: 'Am nevoie de un tirbuson',
-        category: 'need',
-      },
-    ];
-
-    this.copyAnnouncements = [...this.announcements];
+  async ngOnInit() {
+    try {
+      this.announcements = await this.announcementService.getAnnouncements();
+      this.copyAnnouncements = [...this.announcements];
+    } catch (error) {
+      console.log('Error loading announcements', error);
+    }
   }
 
   onSearchChange(event: CustomEvent<SearchbarInputEventDetail>) {

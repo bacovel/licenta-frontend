@@ -7,15 +7,36 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="currentUser">
   <div class="itemContent">
     <div class="details">
-      <img [src]="data[0]?.image" />
-      <h1>{{data[0]?.title}}</h1>
-      <p>{{data[0]?.description}}</p>
-      <h3 *ngIf="data[0]?.price">RON {{data[0]?.price}}</h3>
+      <img [src]="data?.image" />
+      <h1>{{ data?.title }}</h1>
+      <p>{{ data?.description }}</p>
+      <p *ngIf="data?.price" class="price">RON {{ data?.price }}</p>
+      <br />
+      <address>
+        <i *ngIf="data?.user">Posted by: {{ data?.user.name }}</i><br />
+        <i *ngIf="data?.user?.phone">Contact: {{ data?.user.phone }}</i>
+      </address>
     </div>
 
-    <ion-button expand="full">Rezerva</ion-button>
+    <div>
+      <ion-button expand="full" (click)="callUser(data?.user?.phone)"
+        >Call</ion-button
+      >
+      <ion-button
+        expand="full"
+        (click)="reserveAnnouncement()"
+        *ngIf="!data?.isOnHold && currentUser !== data?.user._id"
+        >Reserve</ion-button
+      >
+      <ion-button
+        expand="full"
+        (click)="releaseAnnouncement()"
+        *ngIf="data?.isOnHold && (currentUser === data?.onHoldBy || currentUser === data?.user._id)"
+        >Cancel Reservation</ion-button
+      >
+    </div>
   </div>
 </ion-content>

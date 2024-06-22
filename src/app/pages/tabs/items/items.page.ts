@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, enableProdMode } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { IAnnouncement } from 'src/app/interfaces/iannouncement';
+import { AnnouncementService } from 'src/app/services/announcement/announcement.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { GlobalService } from 'src/app/services/global/global.service';
 
 @Component({
   selector: 'app-items',
@@ -10,73 +13,75 @@ import { IAnnouncement } from 'src/app/interfaces/iannouncement';
 })
 export class ItemsPage implements OnInit {
   id: string | null = '';
-  data: any = {};
-  items: IAnnouncement[] = [];
-
-  announcements = [
-    {
-      uid: '2werd',
-      image: '../../../assets/hainaTest.jpeg',
-      title: 'Haina',
-      description: 'Calitate foarte buna',
-      category: 'item',
-      price: 20,
-    },
-    {
-      uid: '2wer2d',
-      image: '../../../assets/hainaTest.jpeg',
-      title: 'Plita',
-      description: 'Am folosit o doar odata',
-      category: 'item',
-      price: 40,
-    },
-    {
-      uid: '2wdferd',
-      image: '../../../../assets/hainaTest.jpeg',
-      title: 'Tigari',
-      description: 'Dunhill negru',
-      category: 'item',
-      price: 15,
-    },
-    {
-      uid: '2weghrd',
-      image: '../../../assets/hainaTest.jpeg',
-      title: 'Spalat',
-      description: 'Am masina de spalat rufe',
-      category: 'service',
-      price: 5,
-    },
-    {
-      uid: '2wuird',
-      image: '../../../assets/hainaTest.jpeg',
-      title: 'Rapid',
-      description: 'Am nevoie de un tirbuson',
-      category: 'need',
-    },
-  ];
+  data: IAnnouncement | undefined;
+  currentUser: any;
 
   constructor(
     private navCtrl: NavController,
     private route: ActivatedRoute,
+    private announcementService: AnnouncementService,
+    private authService: AuthService,
+    private global: GlobalService,
   ) {}
 
-  ngOnInit() {
-    this.route.paramMap.subscribe((paramMap) => {
-      console.log('data: ', paramMap);
+  async ngOnInit() {
+    this.route.paramMap.subscribe(async (paramMap) => {
       if (!paramMap.has('announcementId')) {
         this.navCtrl.back();
         return;
       }
       this.id = paramMap.get('announcementId');
-      console.log('id: ', this.id);
-
-      this.getItemData();
+      await this.getItemData();
     });
+    this.currentUser = this.authService.getCurrentUser();
+    console.log(this.currentUser);
   }
 
-  getItemData() {
-    this.data = {};
-    this.data = this.announcements.filter((x) => x.uid === this.id);
-    console.log('announcement ', this.data);
+  async getItemData() {
+    if (this.id) {
+      try {
+        const announcement = await this.announcementService.getAnnouncementById(
+          this.id,
+        );
+        this.data = announcement;
+        console.log(this.data);
+      } catch (error) {
+        console.error('Error fetching announcement:', error);
+      }
+    }
+  }
+
+  callUser(phone: string | undefined) {
+    if (phone) {
+      window.open(`tel:${phone}`, '_system');
+    }
+  }
+
+  async reserveAnnouncement() {
+    if (this.id) {
+      try {
+        await this.announcementService.reserveAnnouncement(this.id);
+        await this.getItemData();
+      } catch (e) {
+        console.log('Error reserving announcement:', e);
+        let msg = 'Could not reserve the announcement, please try again later!';
+        let header = 'Reservation failed';
+        if ((e as any)?.error?.message) {
+          msg = (e as any).error.message;
+        }
+        this.global.showAlert(msg, header);
+      }
+    }
+  }
+
+  async releaseAnnouncement() {
+    if (this.id) {
+      try {
+        await this.announcementService.releaseAnnouncement(this.id);
+        await this.getItemData();
+      } catch (error) {
+        console.error('Error releasing announcement:', error);
+      }
+    }
   }
 }

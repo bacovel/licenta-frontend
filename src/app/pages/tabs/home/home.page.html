@@ -7,6 +7,8 @@
       debounce="800"
       (ionInput)="onSearchChange($event)"
     ></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar>
     <ion-segment value="basket-outline" (ionChange)="onSegmentChange($event)">
       <ion-segment-button value="all">
         <ion-icon name="basket"></ion-icon>
@@ -27,14 +29,14 @@
 <ion-content [fullscreen]="true">
   <div class="headerSearchText">
     <ion-text class="searchText" *ngIf="query.length > 0"
-      >Search result for "{{query}}"</ion-text
+      >Search result for "{{ query }}"</ion-text
     >
   </div>
   <div class="announcements">
     <app-announcement
       *ngFor="let announcement of copyAnnouncements"
       [announcement]="announcement"
-      [routerLink]="['/', 'tabs', 'announcements', announcement.uid]"
+      [routerLink]="['/', 'tabs', 'announcements', announcement._id]"
     ></app-announcement>
   </div>
 </ion-content>

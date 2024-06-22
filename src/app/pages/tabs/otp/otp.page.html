@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Email Verification</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list lines="none">
+    <ion-list-header class="ion-margin">
+      <ion-label>Enter Verification Code</ion-label>
+    </ion-list-header>
+
+    <ion-item class="ion-margin">
+      <ion-label>
+        <div class="ion-padding-top" align="center">
+          <app-otp-input
+            (length)="getOtpLength($event)"
+            (otp)="onOtpChange($event)"
+          ></app-otp-input>
+        </div>
+      </ion-label>
+    </ion-item>
+
+    <ion-item class="ion-margin-horizontal">
+      <ion-button fill="clear" color="dark" (click)="resend()" slot="start"
+        >RESEND</ion-button
+      >
+      <ion-button fill="clear" color="primary" (click)="verify()" slot="end"
+        >VERIFY</ion-button
+      >
+    </ion-item>
+  </ion-list>
+</ion-content>

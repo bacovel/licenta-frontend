@@ -10,17 +10,28 @@
       <ion-avatar>
         <img
           alt="Silhouette of a person's head"
-          src="https://ionicframework.com/docs/img/demos/avatar.svg"
+          *ngIf="profile?.image; else noImage"
+          [src]="profile?.image"
         />
+        <ng-template #noImage>
+          <img src="assets/avatar_image.png" alt="Default Image" />
+        </ng-template>
       </ion-avatar>
     </div>
 
     <div>
       <ion-card-header>
-        <ion-card-title>Panait Andrei</ion-card-title>
+        <ion-card-title>{{profile?.name}}</ion-card-title>
       </ion-card-header>
 
-      <ion-card-content> panaitandrei39&#64;gmail.com </ion-card-content>
+      <ion-card-content>
+        {{profile?.email}} <br />
+        {{profile?.phone}}
+      </ion-card-content>
+    </div>
+
+    <div>
+      <input type="file" (change)="uploadImage($event)" />
     </div>
   </ion-card>
 
@@ -65,7 +76,7 @@
         <ion-icon color="primary" slot="start" name="help"></ion-icon>
         <ion-label>FAQ</ion-label>
       </ion-item>
-      <ion-item [button]="true" detail="true" lines="none">
+      <ion-item [button]="true" detail="true" lines="none" (click)="logout()">
         <ion-icon color="danger" slot="start" name="log-out-outline"></ion-icon>
         <ion-label>Log Out</ion-label>
       </ion-item>

@@ -1,14 +1,39 @@
 ion-header {
   ion-toolbar {
     padding: 0.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
 
     ion-searchbar {
       --border-radius: 1em;
+      flex: 1;
+      // margin: 0 0.5em;
+    }
+
+    ion-segment {
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      ion-segment-button {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+      }
     }
   }
 }
 
 ion-content {
+  background-color: white;
+  --offset-bottom: auto !important;
+  --overflow: hidden;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   .headerSearchText {
     width: 100%;
 
@@ -22,6 +47,12 @@ ion-content {
   .announcements {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  app-announcement {
+    flex: 1 1 calc(50% - 1rem);
+    margin-bottom: 1em;
   }
 }

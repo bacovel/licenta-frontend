@@ -9,15 +9,13 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint",
     "prepare": "husky install",
     "prettier": "npx prettier . --write",
     "prettier:check": "prettier --config .prettierrc --check \"src/**/*.{ts,css,html}\""
   },
   "lint-staged": {
     "src/**/*.{ts,html}": [
-      "npx prettier --write",
-      "npx eslint --fix"
+      "npx prettier --write"
     ]
   },
   "private": true,
@@ -34,10 +32,12 @@
     "@capacitor/core": "5.7.2",
     "@capacitor/haptics": "5.0.7",
     "@capacitor/keyboard": "5.0.8",
+    "@capacitor/preferences": "^6.0.0",
     "@capacitor/status-bar": "5.0.7",
     "@ionic/angular": "^7.0.0",
-    "eslint-config-prettier": "^9.1.0",
     "ionicons": "^7.0.0",
+    "jwt-decode": "^4.0.0",
+    "ng-otp-input": "^1.9.3",
     "prettier": "^3.2.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -45,18 +45,12 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.0",
-    "@angular-eslint/eslint-plugin": "^16.2.0",
-    "@angular-eslint/eslint-plugin-template": "^16.2.0",
-    "@angular-eslint/template-parser": "^16.2.0",
     "@angular/cli": "^17.0.0",
     "@angular/compiler-cli": "^17.0.2",
     "@angular/language-service": "^17.0.2",
     "@capacitor/cli": "5.7.2",
     "@ionic/angular-toolkit": "^9.0.0",
     "@types/jasmine": "~5.1.0",
-    "@typescript-eslint/eslint-plugin": "^6.8.0",
-    "eslint": "^8.52.0",
-    "eslint-plugin-prettier": "^5.0.1",
     "husky": "^8.0.0",
     "jasmine-core": "~5.1.0",
     "jasmine-spec-reporter": "~5.0.0",
@@ -65,7 +59,6 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "lint-staged": "^15.0.2",
     "typescript": "~5.2.2"
   },
   "description": "An Ionic project"

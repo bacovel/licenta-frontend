@@ -24,3 +24,13 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+
+
+
+.otp-input-style{
+    width: 5vh !important;
+    height: 5vh !important;
+    font-size: 1.5rem !important;
+    background: var(--ion-color-light);
+}

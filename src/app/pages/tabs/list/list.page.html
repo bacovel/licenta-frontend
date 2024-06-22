@@ -6,40 +6,74 @@
 
 <ion-content [fullscreen]="true" mode="md">
   <div class="content">
-    <ion-select
-      class="input"
-      label="Choose Category"
-      label-placement="floating"
-      fill="outline"
-      [(ngModel)]="selectedCategory"
-    >
-      <ion-select-option value="item">Item</ion-select-option>
-      <ion-select-option value="service">Service</ion-select-option>
-      <ion-select-option value="need" ng-if="">Need</ion-select-option>
-    </ion-select>
-    <ion-input
-      class="input"
-      label="Title"
-      label-placement="floating"
-      fill="outline"
-      placeholder="Enter your title"
-    ></ion-input>
-    <ion-input
-      class="input"
-      label="Description"
-      label-placement="floating"
-      fill="outline"
-      placeholder="Enter a short description"
-    ></ion-input>
-    <ion-input
-      *ngIf="selectedCategory !== 'need'"
-      class="input"
-      label="Price"
-      label-placement="floating"
-      fill="outline"
-      placeholder="Enter your price in RON"
-      type="number"
-    ></ion-input>
-    <ion-button class="input">Submit</ion-button>
+    <form (ngSubmit)="submitAnnouncement()">
+      <ion-select
+        class="input"
+        label="Choose Category"
+        label-placement="floating"
+        fill="outline"
+        [(ngModel)]="selectedCategory"
+        name="category"
+      >
+        <ion-select-option value="item">Item</ion-select-option>
+        <ion-select-option value="service">Service</ion-select-option>
+        <ion-select-option value="need">Need</ion-select-option>
+      </ion-select>
+
+      <ion-input
+        class="input"
+        label="Title"
+        label-placement="floating"
+        fill="outline"
+        placeholder="Enter your title"
+        required
+        [(ngModel)]="announcement.title"
+        name="title"
+        #titleCtrl="ngModel"
+      ></ion-input>
+      <ion-text color="danger" *ngIf="!titleCtrl.valid && titleCtrl.touched">
+        <p class="errorMsg">* Please enter your announcement title!</p>
+      </ion-text>
+
+      <ion-input
+        class="input"
+        label="Description"
+        label-placement="floating"
+        fill="outline"
+        placeholder="Enter a short description"
+        required
+        [(ngModel)]="announcement.description"
+        name="description"
+        #descriptionCtrl="ngModel"
+      ></ion-input>
+      <ion-text
+        color="danger"
+        *ngIf="!descriptionCtrl.valid && descriptionCtrl.touched"
+      >
+        <p class="errorMsg">* Please enter your announcement description!</p>
+      </ion-text>
+
+      <ion-input
+        *ngIf="selectedCategory !== 'need'"
+        class="input"
+        label="Price"
+        label-placement="floating"
+        fill="outline"
+        placeholder="Enter your price in RON"
+        type="number"
+        [(ngModel)]="announcement.price"
+        name="price"
+      ></ion-input>
+
+      <ion-item class="input file-input">
+        <input
+          type="file"
+          (change)="onImageSelected($event)"
+          accept="image/*"
+        />
+      </ion-item>
+
+      <ion-button class="input" expand="full" type="submit">Submit</ion-button>
+    </form>
   </div>
 </ion-content>

@@ -40,6 +40,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./items/items.module').then((m) => m.ItemsPageModule),
   },
+  {
+    path: 'otp',
+    loadChildren: () => import('./otp/otp.module').then((m) => m.OtpPageModule),
+  },
 ];
 
 @NgModule({

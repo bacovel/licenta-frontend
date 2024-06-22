@@ -6,4 +6,19 @@
   .input {
     margin-top: 1em;
   }
+
+  .file-input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-left: 1em;
+    padding-right: 1em;
+    input[type="file"]:host {
+      --inner-border-width: 0 !important;
+    }
+  
+    /* Optional: Add some padding and border to the ion-item itself */
+    ion-item {
+      margin-bottom: 1em;
+    }
+  }
 }

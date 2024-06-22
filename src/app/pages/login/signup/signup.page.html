@@ -1,0 +1,116 @@
+<ion-content>
+  <div div class="signup-content">
+    <div class="signup-card">
+      <ion-text>
+        <h1>SIGN UP</h1>
+      </ion-text>
+
+      <form #f1="ngForm" (ngSubmit)="onSubmit(f1)" autocomplete="off">
+        <ion-list lines="none">
+          <ion-item>
+            <ion-input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              ngModel
+              #name="ngModel"
+              required
+              (input)="validateName(name.value)"
+              ><ion-icon name="person-outline" slot="start"></ion-icon
+            ></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="!isNameValid && name.touched">
+            <p class="errorMsg">
+              * Please enter a valid name! It should be at least 2 characters
+              and no numbers
+            </p>
+          </ion-text>
+
+          <ion-item>
+            <ion-input
+              type="email"
+              name="email"
+              email
+              placeholder="Email"
+              ngModel
+              #emailCtrl="ngModel"
+              required
+              autocomplete="new-email"
+              ><ion-icon name="mail-outline" slot="start"></ion-icon
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="!emailCtrl.valid && emailCtrl.touched"
+          >
+            <p class="errorMsg">* Please insert a valid email!</p>
+          </ion-text>
+
+          <ion-item>
+            <ion-input
+              type="text"
+              name="phone"
+              placeholder="Phone Number"
+              ngModel
+              #phone="ngModel"
+              minlength="10"
+              maxlength="10"
+              required
+              ><ion-icon name="call-outline" slot="start"></ion-icon
+            ></ion-input>
+          </ion-item>
+          <ion-text color="danger" *ngIf="!phone.valid && phone.touched">
+            <p class="errorMsg">* Please enter a valid phone number!</p>
+          </ion-text>
+
+          <ion-item>
+            <ion-input
+              type="password"
+              name="password"
+              placeholder="Password"
+              ngModel
+              #passwordCtrl="ngModel"
+              required
+              minlength="8"
+              autocomplete="new-password"
+              ><ion-icon name="key-outline" slot="start"></ion-icon
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
+          >
+            <p class="errorMsg">
+              * Password must be at least 8 characters minimum!
+            </p>
+          </ion-text>
+        </ion-list>
+
+        <ion-button
+          *ngIf="!isLoading"
+          [disabled]="!f1.valid && !isNameValid"
+          expand="block"
+          shape="round"
+          type="submit"
+          color="primary"
+          >SIGN UP</ion-button
+        >
+
+        <ion-button
+          *ngIf="isLoading"
+          shape="round"
+          color="primary"
+          expand="block"
+          [disabled]="!f1.valid"
+        >
+          <ion-spinner name="circles"></ion-spinner>
+        </ion-button>
+      </form>
+
+      <p class="ion-text-center sign-up" routerLink="/login">
+        Already have an account?
+        <b>Sign In!</b>
+      </p>
+    </div>
+  </div>
+</ion-content>

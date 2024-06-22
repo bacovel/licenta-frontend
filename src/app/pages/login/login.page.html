@@ -1,0 +1,99 @@
+<ion-content>
+  <div div class="login-content">
+    <div class="login-card">
+      <ion-text>
+        <h1>LOG IN</h1>
+      </ion-text>
+
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" autocomplete="off">
+        <ion-list lines="none">
+          <ion-item>
+            <ion-input
+              type="email"
+              name="email"
+              email
+              placeholder="Email"
+              ngModel
+              #emailCtrl="ngModel"
+              required
+              autocomplete="new-email"
+              ><ion-icon name="mail-outline" slot="start"></ion-icon
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="!emailCtrl.valid && emailCtrl.touched"
+          >
+            <p class="errorMsg">* Please insert a valid email!</p>
+          </ion-text>
+          <ion-item>
+            <ion-input
+              type="password"
+              name="password"
+              placeholder="Password"
+              ngModel
+              #passwordCtrl="ngModel"
+              required
+              minlength="8"
+              autocomplete="new-password"
+              ><ion-icon name="key-outline" slot="start"></ion-icon
+            ></ion-input>
+          </ion-item>
+          <ion-text
+            color="danger"
+            *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
+          >
+            <p class="errorMsg">
+              * Password must be at least 8 characters minimum!
+            </p>
+          </ion-text>
+        </ion-list>
+
+        <p class="ion-text-right">
+          <ion-text (click)="openModal()"> Forgot Password? </ion-text>
+        </p>
+
+        <ion-button
+          *ngIf="!isLogin"
+          [disabled]="!f.valid"
+          expand="block"
+          shape="round"
+          type="submit"
+          color="primary"
+          >SIGN IN</ion-button
+        >
+
+        <ion-button
+          *ngIf="isLogin"
+          shape="round"
+          color="primary"
+          expand="block"
+          [disabled]="!f.valid"
+        >
+          <ion-spinner name="circles"></ion-spinner>
+        </ion-button>
+      </form>
+
+      <p class="ion-text-center sign-up" routerLink="/login/signup">
+        Don't have an account?
+        <b>Sign Up!</b>
+      </p>
+
+      <ion-modal>
+        <ng-template>
+          <!-- <ion-header>
+            
+          </ion-header>
+          <ion-content class="ion-padding">
+            
+          </ion-content> -->
+          <app-reset-password
+            (check_email)="sendEmailOtp($event)"
+            (verify_otp)="verifyOtp($event)"
+            (set_password)="resetPassword($event)"
+          ></app-reset-password>
+        </ng-template>
+      </ion-modal>
+    </div>
+  </div>
+</ion-content>

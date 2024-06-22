@@ -1,18 +1,43 @@
 ion-card {
-  max-width: 10em;
-  flex: 0 1 50%;
+  width: 9em;  // Fixed width for all cards
+  height: 14em; // Fixed height for all cards
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   img {
-    max-height: 10em;
+    max-height: 5em;
+    object-fit: cover;
+  }
+
+  ion-card-header {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1em;
+    font-weight: bold;
+    flex: 0 1 auto; // Allows the title to grow but keeps it within bounds
   }
 
   .subtitle {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    font-size: 0.9em;
+    color: gray;
+    flex: 0 1 auto; // Allows the subtitle to grow but keeps it within bounds
   }
 
   ion-card-content {
     font-weight: bold;
+    text-align: center;
+    margin-top: auto;
   }
 }
