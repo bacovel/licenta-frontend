@@ -49,10 +49,22 @@ ion-content {
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 1rem;
+
+    .loader{
+      width: 100vw;
+      height: 50vh;
+
+      ion-spinner{
+        display: block;
+        margin: 5em auto;
+        width: 15%;
+        height: 15%;
+      }
+    }
   }
 
   app-announcement {
-    flex: 1 1 calc(50% - 1rem);
+    // flex: 1 1 calc(50% - 1rem);
     margin-bottom: 1em;
   }
 }

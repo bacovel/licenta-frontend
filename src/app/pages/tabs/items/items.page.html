@@ -8,9 +8,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="currentUser">
-  <div class="itemContent">
+  <div class="loader" *ngIf="isLoading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+  <div class="itemContent" *ngIf="!isLoading">
     <div class="details">
-      <img [src]="data?.image" />
+      <img
+        (error)="imag.setAttribute('src','assets/placeholder.png' )"
+        [src]="data?.imageUrl"
+        #imag
+      />
       <h1>{{ data?.title }}</h1>
       <p>{{ data?.description }}</p>
       <p *ngIf="data?.price" class="price">RON {{ data?.price }}</p>
@@ -22,7 +29,10 @@
     </div>
 
     <div>
-      <ion-button expand="full" (click)="callUser(data?.user?.phone)"
+      <ion-button
+        expand="full"
+        (click)="callUser(data?.user?.phone)"
+        *ngIf="currentUser !== data?.user._id"
         >Call</ion-button
       >
       <ion-button
@@ -36,6 +46,13 @@
         (click)="releaseAnnouncement()"
         *ngIf="data?.isOnHold && (currentUser === data?.onHoldBy || currentUser === data?.user._id)"
         >Cancel Reservation</ion-button
+      >
+
+      <ion-button
+        expand="full"
+        (click)="deleteAnnouncement()"
+        *ngIf="currentUser === data?.user._id"
+        >Delete</ion-button
       >
     </div>
   </div>

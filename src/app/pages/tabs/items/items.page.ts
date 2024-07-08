@@ -1,10 +1,11 @@
-import { Component, OnInit, enableProdMode } from '@angular/core';
+import { Component, Input, OnInit, enableProdMode } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { IAnnouncement } from 'src/app/interfaces/iannouncement';
 import { AnnouncementService } from 'src/app/services/announcement/announcement.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GlobalService } from 'src/app/services/global/global.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-items',
@@ -15,6 +16,7 @@ export class ItemsPage implements OnInit {
   id: string | null = '';
   data: IAnnouncement | undefined;
   currentUser: any;
+  isLoading: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -25,6 +27,7 @@ export class ItemsPage implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.isLoading = true;
     this.route.paramMap.subscribe(async (paramMap) => {
       if (!paramMap.has('announcementId')) {
         this.navCtrl.back();
@@ -32,9 +35,9 @@ export class ItemsPage implements OnInit {
       }
       this.id = paramMap.get('announcementId');
       await this.getItemData();
+      this.isLoading = false;
     });
     this.currentUser = this.authService.getCurrentUser();
-    console.log(this.currentUser);
   }
 
   async getItemData() {
@@ -44,6 +47,7 @@ export class ItemsPage implements OnInit {
           this.id,
         );
         this.data = announcement;
+        this.data.imageUrl = `${environment.serverBaseUrl}announcement/image/${this.data._id}`;
         console.log(this.data);
       } catch (error) {
         console.error('Error fetching announcement:', error);
@@ -81,6 +85,20 @@ export class ItemsPage implements OnInit {
         await this.getItemData();
       } catch (error) {
         console.error('Error releasing announcement:', error);
+      }
+    }
+  }
+
+  async deleteAnnouncement() {
+    if (this.id) {
+      try {
+        await this.announcementService.deleteAnnouncement(this.id);
+        this.navCtrl.back();
+        this.global.successToast(
+          'Announcement deleted successfully! Please refresh the page.',
+        );
+      } catch (error) {
+        console.error('Error deleting announcement:', error);
       }
     }
   }

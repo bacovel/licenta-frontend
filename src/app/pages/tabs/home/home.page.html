@@ -33,6 +33,9 @@
     >
   </div>
   <div class="announcements">
+    <div class="loader" *ngIf="isLoading">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
     <app-announcement
       *ngFor="let announcement of copyAnnouncements"
       [announcement]="announcement"

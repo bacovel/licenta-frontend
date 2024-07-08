@@ -9,6 +9,7 @@ import { AnnouncementService } from 'src/app/services/announcement/announcement.
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  isLoading: boolean = false;
   announcements: IAnnouncement[] = [];
   copyAnnouncements: IAnnouncement[] = [];
   query: string = '';
@@ -18,10 +19,13 @@ export class HomePage implements OnInit {
 
   async ngOnInit() {
     try {
+      this.isLoading = true;
       this.announcements = await this.announcementService.getAnnouncements();
-      this.copyAnnouncements = [...this.announcements];
+      this.copyAnnouncements = [...this.announcements].reverse();
+      this.isLoading = false;
     } catch (error) {
       console.log('Error loading announcements', error);
+      this.isLoading = true;
     }
   }
 

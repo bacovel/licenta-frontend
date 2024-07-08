@@ -29,10 +29,6 @@
         {{profile?.phone}}
       </ion-card-content>
     </div>
-
-    <div>
-      <input type="file" (change)="uploadImage($event)" />
-    </div>
   </ion-card>
 
   <ion-card class="general-card">
@@ -41,9 +37,10 @@
     </ion-card-header>
 
     <ion-card-content>
-      <ion-item [button]="true" detail="true">
-        <ion-icon color="primary" slot="start" name="person-outline"></ion-icon>
-        <ion-label>Edit Profile</ion-label>
+      <ion-item [button]="true" detail="true" for="file-upload">
+        <ion-icon color="primary" slot="start" name="image-outline"></ion-icon>
+        <label class="custom-file-upload">Change Profile Image</label>
+        <input id="file-upload" type="file" (change)="uploadImage($event)" />
       </ion-item>
       <ion-item [button]="true" detail="true">
         <ion-icon color="primary" slot="start" name="key-outline"></ion-icon>

@@ -13,8 +13,10 @@ export class AnnouncementComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.announcement.image, typeof this.announcement.image);
+    console.log(this.announcement);
+    console.log(this.announcement.price);
     this.announcement.imageUrl = `${environment.serverBaseUrl}announcement/image/${this.announcement._id}`;
+
     console.log(this.announcement.imageUrl);
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+// import { ResetPasswordComponent } from 'src/app/components/reset-password/reset-password.component';
 import { IProfile } from 'src/app/interfaces/iprofile';
 import { ApiService } from 'src/app/services/api/api.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -12,11 +14,17 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class ProfilePage implements OnInit {
   profile: IProfile | undefined;
   selectedFile: File | null = null;
+  reset_pwd_model = {
+    email: '',
+    otp: '',
+    new_password: '',
+  };
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private apiService: ApiService,
+    private modalCtrl: ModalController,
   ) {}
 
   ngOnInit() {
@@ -44,6 +52,16 @@ export class ProfilePage implements OnInit {
     this.profile.image = imageResponse.link;
     // this.profile.image = imageResponse.;
   }
+
+  // async openModal() {
+  //   const modal = await this.modalCtrl.create({
+  //     component: ResetPasswordComponent,
+  //     componentProps: {
+  //       model: this.reset_pwd_model,
+  //     },
+  //   });
+  //   modal.present();
+  // }
 
   logout() {
     localStorage.clear();

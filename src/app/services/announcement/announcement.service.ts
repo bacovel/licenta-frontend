@@ -43,4 +43,12 @@ export class AnnouncementService {
       .patch<any>(`${this.baseUrl}/release/${id}`, {}, { headers })
       .toPromise();
   }
+
+  deleteAnnouncement(id: string) {
+    const token = window.localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http
+      .delete<any>(`${this.baseUrl}/delete/${id}`, { headers })
+      .toPromise();
+  }
 }

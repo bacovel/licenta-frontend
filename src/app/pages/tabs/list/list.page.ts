@@ -48,6 +48,9 @@ export class ListPage implements OnInit {
         await this.announcementService.createAnnouncement(formData);
       console.log('Announcement', response);
       this.navCtrl.navigateRoot('/tabs/home');
+      this.global.successToast(
+        'Announcement created successfully. Refresh the page!',
+      );
     } catch (e) {
       console.log(e);
       let msg = 'Something went wrong. Please try again.';

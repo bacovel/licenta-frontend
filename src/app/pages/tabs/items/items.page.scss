@@ -17,3 +17,15 @@
     }
   }
 }
+
+.loader{
+  width: 100vw;
+  height: 50vh;
+
+  ion-spinner{
+    display: block;
+    margin: 5em auto;
+    width: 15%;
+    height: 15%;
+  }
+}

@@ -22,3 +22,7 @@ ion-card {
   flex-direction: row;
   align-items: center;
 }
+
+input[type="file"] {
+  display: none;
+}

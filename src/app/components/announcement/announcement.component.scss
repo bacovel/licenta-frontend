@@ -1,12 +1,12 @@
 ion-card {
-  width: 9em;  // Fixed width for all cards
-  height: 14em; // Fixed height for all cards
+  width: 10em;  // Fixed width for all cards
+  height: 17em; // Fixed height for all cards
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   img {
-    max-height: 5em;
+    max-height: 7em;
     object-fit: cover;
   }
 
